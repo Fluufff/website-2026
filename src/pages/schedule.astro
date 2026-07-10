@@ -146,11 +146,33 @@ const eventsid = Math.random().toString(36).slice(2, 11)
     // opacity: 0.5;
     display: none;
   }
+  .schedule-barq {
+    position: absolute;
+    left: 95%;
+    top: -35px;
+
+    font-size: var(--text-xs);
+    font-family: var(--default-font-family);
+
+    white-space: pre;
+    text-decoration: none;
+
+    svg {
+      display: inline;
+    }
+
+    @media (max-width: 500px) {
+      small {
+        transform: translateX(-145%);
+        display: inline-block;
+      }
+    }
+  }
 </style>
 
 <Base>
   <Section outerClass="bg-accent1-50" grid="grid-col-1 justify-items-center" innerClass="w-full" gap="gap-8">
-    <h2 class="font-atari text-2xl md:text-3xl">Schedule</h2>
+    <h2 class="font-atari text-2xl md:text-3xl relative">Schedule<a href="https://barq.app/e/SrX8DSj" class="schedule-barq"><Icon name="barq-full" class="text-5xl" /><small>(view in third-party app)</small></div></h2>
     <p class="text-center">
       Your guide to five days of Flüüfff, from the first day's warm-up to the last day's closing hugs.
     </p>
