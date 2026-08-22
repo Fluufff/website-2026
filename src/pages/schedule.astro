@@ -1,5 +1,4 @@
 ---
-import { marked } from 'marked'
 import { DateTime } from 'luxon'
 import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
@@ -12,6 +11,7 @@ import IconWithFallback from '../components/IconWithFallback.astro'
 import con_dates from '../data/con/dates.json'
 import Socials from '../content/socials.astro'
 import ScheduleStatus from '../components/scheduleStatus.vue'
+import { render_markdown } from '../helpers'
 
 const openLocations = await getCollection('scheduleOpenLocations')
 const order = ['Bar', 'Fursuit Lounge', "Dealers' Den"]
@@ -253,7 +253,7 @@ function get_open_location_width_class(columns: number) {
           <section
             data-description-of-open-location={openLocation.id}
             class="hidden lex flex-col gap-4 p-4 shadow-md bg-neutrals-50 schedule__entry basis-full"
-            set:html={marked.parse(openLocation.data.description.replaceAll('\n', '<br />'), { breaks: true })}
+            set:html={render_markdown(openLocation.data.description)}
           />
         ))
       }
@@ -310,7 +310,7 @@ function get_open_location_width_class(columns: number) {
               <Icon class="text-lg hidden" name="lucide:arrow-up" />
             </div>
             <section data-description-and-tags-of-event={e.id} class="flex flex-col gap-4 hidden md:flex">
-              <div set:html={marked.parse(e.description.replaceAll('\n', '<br />'), { breaks: true })} />
+              <div set:html={render_markdown(e.description)} />
               {e.tags.length != 0 ? <hr class="border-accent1-200" /> : ''}
               {e.tags.length != 0 ? (
                 <div class="flex flex-wrap gap-2">
