@@ -3,6 +3,8 @@ name: Deploy
 on:
   push:
     branches: [main, testing]
+  schedule:
+    - cron: '0 0 * * *' # nightly at midnight UTC
   workflow_dispatch:
 
 permissions:
