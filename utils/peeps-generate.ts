@@ -70,14 +70,17 @@ const spreadsheet_header_row = spreadsheet_rows.shift()
 const spreadsheet_header = spreadsheet_header_row['values'].map((row: Record<string, string>) => row['formattedValue'])
 assert.equal(spreadsheet_header.join(', '), 'Team member, Department, Role, Notes')
 
+let all_volunteers: Volunteer[] = []
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // deno-lint-ignore no-explicit-any
-let all_volunteers: Volunteer[] = spreadsheet_rows.map((spreadsheet_row: any) => {
-  return {
-    id: spreadsheet_row['values'][0]['chipRuns'][0]['chip']['personProperties']['email'].split('@')[0],
-    name: spreadsheet_row['values'][0]['formattedValue'],
-    department: spreadsheet_row['values'][1]['formattedValue'],
-    role: spreadsheet_row['values'][2]?.['formattedValue'] ?? ''
+spreadsheet_rows.forEach((spreadsheet_row: any) => {
+  if (spreadsheet_row['values'][0]['formattedValue']) {
+    all_volunteers.push({
+      id: spreadsheet_row['values'][0]['chipRuns'][0]['chip']['personProperties']['email'].split('@')[0],
+      name: spreadsheet_row['values'][0]['formattedValue'],
+      department: spreadsheet_row['values'][1]['formattedValue'],
+      role: spreadsheet_row['values'][2]?.['formattedValue'] ?? ''
+    })
   }
 })
 /* eslint-enable @typescript-eslint/no-explicit-any */
