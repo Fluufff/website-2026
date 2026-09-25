@@ -309,26 +309,26 @@ function get_open_location_width_class(columns: number) {
               <Icon class="text-lg" name="lucide:arrow-down" />
               <Icon class="text-lg hidden" name="lucide:arrow-up" />
             </div>
-            <section data-description-and-tags-of-event={e.id} class="flex flex-col gap-4 hidden md:flex">
+            <section data-description-of-event={e.id} class="flex flex-col gap-4 hidden md:flex">
               <div set:html={marked.parse(e.description.replaceAll('\n', '<br />'), { breaks: true })} />
-              {e.tags.length != 0 ? <hr class="border-accent1-200" /> : ''}
-              {e.tags.length != 0 ? (
-                <div class="flex flex-wrap gap-2">
-                  {e.tags
-                    .filter((t) => t)
-                    .map((t) => {
-                      return (
-                        <p class="p-2 flex gap-2 items-center uppercase bg-accent1-50 border rounded-sm border-accent1-200 font-bold">
-                          <IconWithFallback name={t!.icon} class="schedule__tag--icon" style={`color: ${t!.color}`} />
-                          {t!.name}
-                        </p>
-                      )
-                    })}
-                </div>
-              ) : (
-                ''
-              )}
             </section>
+            {e.tags.length != 0 ? <hr class="border-accent1-200" /> : ''}
+            {e.tags.length != 0 ? (
+              <div class="flex flex-wrap gap-2">
+                {e.tags
+                  .filter((t) => t)
+                  .map((t) => {
+                    return (
+                      <p class="p-2 flex gap-2 items-center uppercase bg-accent1-50 border rounded-sm border-accent1-200 font-bold">
+                        <IconWithFallback name={t!.icon} class="schedule__tag--icon" style={`color: ${t!.color}`} />
+                        {t!.name}
+                      </p>
+                    )
+                  })}
+              </div>
+            ) : (
+              ''
+            )}
           </section>
         ))
       }
@@ -442,7 +442,7 @@ function get_open_location_width_class(columns: number) {
       if (child.tagName == 'svg') child.classList.toggle('hidden')
     })
 
-    const event = document.querySelector(`section[data-description-and-tags-of-event="${event_id}"]`)
+    const event = document.querySelector(`section[data-description-of-event="${event_id}"]`)
     event.classList.toggle('hidden')
   }
 </script>
