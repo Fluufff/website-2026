@@ -291,7 +291,7 @@ function get_open_location_width_class(columns: number) {
               <ScheduleStatus date={e.day} start={e.start} end={e.end} client:load />
             </div>
             <h3 class="font-atari font-bold text-xl md:text-2xl">{e.title}</h3>
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between md:items-center max-md:flex-col">
               <p class="flex items-center gap-2">
                 <Icon class="text-xl" name="lucide:map-pin" />
                 {e.location || 'Unknown'}
