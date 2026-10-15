@@ -251,7 +251,7 @@ function get_open_location_width_class(columns: number) {
       {
         openLocations.map((openLocation) => (
           <section
-            data-description-of-open-location={openLocation.id}
+            -of-open-location={openLocation.id}
             class="hidden lex flex-col gap-4 p-4 shadow-md bg-neutrals-50 schedule__entry basis-full"
             set:html={render_markdown(openLocation.data.description)}
           />
@@ -309,7 +309,7 @@ function get_open_location_width_class(columns: number) {
               <Icon class="text-lg" name="lucide:arrow-down" />
               <Icon class="text-lg hidden" name="lucide:arrow-up" />
             </div>
-            <section data-description-and-tags-of-event={e.id} class="flex flex-col gap-4 hidden md:flex">
+            <section data-description-of-event={e.id} class="flex flex-col gap-4 hidden md:flex">
               <div set:html={render_markdown(e.description)} />
               {e.tags.length != 0 ? <hr class="border-accent1-200" /> : ''}
               {e.tags.length != 0 ? (
