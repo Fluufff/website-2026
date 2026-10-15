@@ -251,7 +251,7 @@ function get_open_location_width_class(columns: number) {
       {
         openLocations.map((openLocation) => (
           <section
-            -of-open-location={openLocation.id}
+            data-description-of-open-location={openLocation.id}
             class="hidden lex flex-col gap-4 p-4 shadow-md bg-neutrals-50 schedule__entry basis-full"
             set:html={render_markdown(openLocation.data.description)}
           />
