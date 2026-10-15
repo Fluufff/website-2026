@@ -310,7 +310,7 @@ function get_open_location_width_class(columns: number) {
               <Icon class="text-lg hidden" name="lucide:arrow-up" />
             </div>
             <section data-description-and-tags-of-event={e.id} class="flex flex-col gap-4 hidden md:flex">
-              <div set:html={marked.parse(e.description.replaceAll('\n', '<br />'), { breaks: true })} />
+              <div set:html={render_markdown(e.description)} />
               {e.tags.length != 0 ? <hr class="border-accent1-200" /> : ''}
               {e.tags.length != 0 ? (
                 <div class="flex flex-wrap gap-2">
