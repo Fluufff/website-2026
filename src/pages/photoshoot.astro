@@ -37,12 +37,19 @@ const registration_start_time = new Date(registration_start).toLocaleTimeString(
   <Section outerClass="bg-accent1-50" grid="grid-col-1 justify-items-center" innerClass="w-full" gap="gap-8">
     <h2 class="font-atari text-2xl md:text-3xl">Photoshoot</h2>
     <p class="text-center">
-      Sign up for a photoshoot slot here!<br /><br /><i>3 people max. per booking, 1 slot per person/group, 15 minutes per slot.</i>
+      Sign up for a photoshoot slot here!<br /><br /><i
+        >3 people max. per booking, 1 slot per person/group, 15 minutes per slot.</i
+      >
     </p>
     <Fragment set:html={`<!-- ${registration_secret} -->`} />
     <Timed start={registration_start}>
       <Button accent1 to={registration_link} label="Sign up for a slot" go />
-      <Button accent1 to="" label={`Signups open ${registration_start_weekday} at ${registration_start_time}`} slot="else" />
+      <Button
+        accent1
+        to=""
+        label={`Signups open ${registration_start_weekday} at ${registration_start_time}`}
+        slot="else"
+      />
     </Timed>
   </Section>
   <Socials />
