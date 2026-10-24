@@ -4,6 +4,7 @@ import Base from '../layouts/Base.astro'
 import Section from '../components/Section.astro'
 import Socials from '../content/socials.astro'
 import Timed from '../components/Timed.astro'
+import Button from '../components/Button.astro'
 
 import { timezone_identifier } from '../data/con/timezone.json'
 import { registration_secret, registration_start, registration_link } from '../data/con/photoshoot.json'
@@ -36,16 +37,12 @@ const registration_start_time = new Date(registration_start).toLocaleTimeString(
   <Section outerClass="bg-accent1-50" grid="grid-col-1 justify-items-center" innerClass="w-full" gap="gap-8">
     <h2 class="font-atari text-2xl md:text-3xl">Photoshoot</h2>
     <p class="text-center">
-      You can signup for a photoshoot slot here, lorem ipsum dolor sit amet bla bla bla neat right?
+      Sign up for a photoshoot slot here!<br /><br /><i>3 people max. per booking, 1 slot per person/group, 15 minutes per slot.</i>
     </p>
+    <Fragment set:html={`<!-- ${registration_secret} -->`} />
     <Timed start={registration_start}>
-      <button class="p-2 text-neutral-50 bg-accent1-500 rounded font-semibold day-button">
-        <Fragment set:html={`<!-- ${registration_secret} -->`} />
-        <a href={registration_link}>Click here to sign up</a>
-      </button>
-      <button slot="else" class="p-2 text-neutral-50 bg-accent1-500 rounded font-semibold day-button">
-        Signups open {registration_start_weekday} at {registration_start_time}
-      </button>
+      <Button accent1 to={registration_link} label="Sign up for a slot" go />
+      <Button accent1 to="" label={`Signups open ${registration_start_weekday} at ${registration_start_time}`} slot="else" />
     </Timed>
   </Section>
   <Socials />
