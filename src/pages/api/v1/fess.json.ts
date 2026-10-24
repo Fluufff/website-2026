@@ -18,8 +18,8 @@ const offset = start_con.split('+')[1] // assumes the con happens entirely in th
 const con_slug = 'fluufff'
 const con_name = 'Flüüfff'
 
-const venue_slug = 'mercure'
-const venue_name = 'Mercure Antwerp City South Hotel'
+const venue_slug = 'pullman-antwerp'
+const venue_name = 'Pullman Antwerp'
 
 function get_host_id_from_host_name(host_name: string) {
   return host_name.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '')
