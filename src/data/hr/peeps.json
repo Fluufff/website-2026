@@ -58,14 +58,6 @@
     ]
   },
   {
-    "id": "bleats",
-    "name": "Bleats",
-    "titles": [
-      "Head of Feedback",
-      "Deputy of Stewards & Safety"
-    ]
-  },
-  {
     "id": "jenky",
     "name": "Jenky",
     "titles": [
@@ -147,6 +139,13 @@
     "name": "Narf",
     "titles": [
       "Head of Stewards & Safety"
+    ]
+  },
+  {
+    "id": "bleats",
+    "name": "Bleats",
+    "titles": [
+      "Deputy of Stewards & Safety"
     ]
   },
   {
