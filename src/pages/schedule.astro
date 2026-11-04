@@ -160,6 +160,29 @@ function get_open_location_width_class(columns: number) {
     opacity: 0.5;
     // display: none;
   }
+
+  .schedule-barq {
+    position: absolute;
+    left: 95%;
+    top: -35px;
+
+    font-size: var(--text-xs);
+    font-family: var(--default-font-family);
+
+    white-space: pre;
+    text-decoration: none;
+
+    svg {
+      display: inline;
+    }
+
+    @media (max-width: 500px) {
+      small {
+        transform: translateX(-142%);
+        display: inline-block;
+      }
+    }
+  }
 </style>
 
 <Base>
@@ -332,6 +355,10 @@ function get_open_location_width_class(columns: number) {
           </section>
         ))
       }
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <Icon name="barq-full" class="text-6xl" />
+      <p>You can also find this year’s Flüüfff schedule in the <a href="https://barq.app/e/SrX8DSj">BARQ! app</a>.</p>
     </div>
   </Section>
   <Section grid="grid-col-1 justify-items-center" gap="gap-6">
