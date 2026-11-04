@@ -127,5 +127,5 @@ jobs:
               token: ${{ secrets.KUBE_TOKEN }}
           EOF
 
-          kubectl -n website-next set image deployment/website website=ghcr.io/fluufff/website:sha-${GITHUB_SHA::7}
+          kubectl -n website-next set image deployment/website website=ghcr.io/fluufff/website-2026:sha-${GITHUB_SHA::7}
           kubectl -n website-next rollout status deployment/website

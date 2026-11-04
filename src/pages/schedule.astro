@@ -1,5 +1,4 @@
 ---
-import { marked } from 'marked'
 import { DateTime } from 'luxon'
 import { Icon } from 'astro-icon/components'
 import { getCollection } from 'astro:content'
@@ -11,9 +10,11 @@ import Button from '../components/Button.astro'
 import IconWithFallback from '../components/IconWithFallback.astro'
 import con_dates from '../data/con/dates.json'
 import Socials from '../content/socials.astro'
+import ScheduleStatus from '../components/scheduleStatus.vue'
+import { render_markdown } from '../helpers'
 
 const openLocations = await getCollection('scheduleOpenLocations')
-const order = ['Bar', 'Fursuit Lounge', 'Photoshoot', "Dealers' Den"]
+const order = ['Bar', 'Fursuit Lounge', "Dealers' Den"]
 openLocations.sort((a, b) => order.indexOf(a.data.name) - order.indexOf(b.data.name))
 
 const raw_tags = await getCollection('scheduleTags')
@@ -78,6 +79,19 @@ days.sort((a, b) => a.date.localeCompare(b.date))
 const first_date = days[0]?.date
 const buttonid = Math.random().toString(36).slice(2, 11)
 const eventsid = Math.random().toString(36).slice(2, 11)
+
+function get_open_location_width_class(columns: number) {
+  switch (columns) {
+    case 2:
+      return 'lg:basis-[calc((100%-1rem)/2)]'
+    case 3:
+      return 'xl:basis-[calc((100%-2rem)/3)]'
+    case 4:
+      return '2xl:basis-[calc((100%-3rem)/4)]'
+    default:
+      return 'basis-full'
+  }
+}
 ---
 
 <style lang="scss">
@@ -143,8 +157,8 @@ const eventsid = Math.random().toString(36).slice(2, 11)
   }
 
   .open_location--closed {
-    // opacity: 0.5;
-    display: none;
+    opacity: 0.5;
+    // display: none;
   }
 
   .schedule-barq {
@@ -200,7 +214,7 @@ const eventsid = Math.random().toString(36).slice(2, 11)
         ))
       }
     </div>
-    <div data-id={eventsid} class="flex flex-col w-full gap-4">
+    <div data-id={eventsid} class="flex flex-wrap w-full gap-4">
       {
         days.map((day) =>
           openLocations.map((openLocation) => {
@@ -211,19 +225,12 @@ const eventsid = Math.random().toString(36).slice(2, 11)
             return (
               <section
                 data-date={day.date}
-                class:list={[
-                  'hidden flex flex-col gap-4 p-4 shadow-md rounded-md schedule__entry',
-                  { 'open_location--closed': !any_opening_times_today }
-                ]}
+                style="min-height: 82px;"
+                class={`hidden flex flex-col gap-4 p-4 shadow-md bg-neutrals-50 rounded-md schedule__entry relative basis-full ${get_open_location_width_class(openLocations.length)}`}
               >
-                <div
-                  class:list={[
-                    'flex justify-between items-start',
-                    { 'open_location--closed': !any_opening_times_today }
-                  ]}
-                >
-                  <div class="flex gap-2 items-start">
-                    <Icon class="text-xl" style="margin-top: 2px;" name="lucide:clock" />
+                <div class="flex justify-between items-center h-full font-bold">
+                  <div class:list={['flex gap-2 items-center', { 'text-functional-error': !any_opening_times_today }]}>
+                    <Icon class="text-xl" name="lucide:clock" />
                     <div class="flex flex-col">
                       {any_opening_times_today ? (
                         opening_times_today.map((opening_time) => (
@@ -234,24 +241,30 @@ const eventsid = Math.random().toString(36).slice(2, 11)
                           </span>
                         ))
                       ) : (
-                        <span>Closed</span>
+                        <span>Closed today</span>
                       )}
                     </div>
                   </div>
-                  <div class="flex gap-2">
+                  <div class="flex gap-2" data-arrow-of-open-location={openLocation.id}>
                     {openLocation.data.name}
                     <Icon
-                      class="text-xl cursor-pointer"
+                      class="text-xl cursor-pointer text-accent1-500"
                       style="margin-top: 2px;"
-                      name="lucide:info"
-                      onclick={`toggleOpenLocationDescription('${openLocation.id}')`}
+                      name="lucide:arrow-down"
+                      onclick={`toggleOpenLocationDescription(this, '${openLocation.id}')`}
+                    />
+                    <Icon
+                      class="text-xl cursor-pointer text-accent1-500 hidden"
+                      style="margin-top: 2px;"
+                      name="lucide:arrow-up"
+                      onclick={`toggleOpenLocationDescription(this, '${openLocation.id}')`}
                     />
                   </div>
                 </div>
                 <div
-                  data-description-of-open-location={openLocation.id}
-                  class="hidden"
-                  set:html={marked.parse(openLocation.data.description.replaceAll('\n', '<br />'), { breaks: true })}
+                  data-bridge-of-open-location={openLocation.id}
+                  class="max-xl:hidden hidden absolute bg-neutrals-50 schedule__entry"
+                  style="height: 22px; left: -1px; right: -1px; bottom: -18px; border-top: 0; border-bottom: 0; box-shadow: none;"
                 />
               </section>
             )
@@ -259,10 +272,19 @@ const eventsid = Math.random().toString(36).slice(2, 11)
         )
       }
       {
+        openLocations.map((openLocation) => (
+          <section
+            data-description-of-open-location={openLocation.id}
+            class="hidden lex flex-col gap-4 p-4 shadow-md bg-neutrals-50 schedule__entry basis-full"
+            set:html={render_markdown(openLocation.data.description)}
+          />
+        ))
+      }
+      {
         missing_dates.map((date) => (
           <section
             data-date={date}
-            class="flex flex-col gap-4 px-6 py-8 md:p-16 shadow-md bg-neutrals-50 rounded-md schedule__entry"
+            class="flex flex-col gap-4 px-6 py-8 md:p-16 shadow-md bg-neutrals-50 rounded-md schedule__entry basis-full"
           >
             <h3 class="font-atari font-bold text-xl md:text-2xl text-center">Coming soon</h3>
             <div class="my-2 md:my-8">
@@ -282,17 +304,17 @@ const eventsid = Math.random().toString(36).slice(2, 11)
         all_events.map((e) => (
           <section
             data-date={e.day}
-            class="hidden flex flex-col gap-4 p-4 shadow-md bg-neutrals-50 rounded-md schedule__entry"
+            class="hidden flex flex-col gap-4 p-4 shadow-md bg-neutrals-50 rounded-md schedule__entry basis-full"
           >
             <div class="flex justify-between items-center">
               <p class="flex items-center gap-2">
                 <Icon class="text-xl" name="lucide:clock" />
                 {e.start} - {e.end}
               </p>
-              <p class="bg-orange-200 rounded-sm p-1 event__status upcoming">upcoming</p>
+              <ScheduleStatus date={e.day} start={e.start} end={e.end} client:load />
             </div>
             <h3 class="font-atari font-bold text-xl md:text-2xl">{e.title}</h3>
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between md:items-center max-md:flex-col">
               <p class="flex items-center gap-2">
                 <Icon class="text-xl" name="lucide:map-pin" />
                 {e.location || 'Unknown'}
@@ -311,7 +333,7 @@ const eventsid = Math.random().toString(36).slice(2, 11)
               <Icon class="text-lg hidden" name="lucide:arrow-up" />
             </div>
             <section data-description-and-tags-of-event={e.id} class="flex flex-col gap-4 hidden md:flex">
-              <div set:html={marked.parse(e.description.replaceAll('\n', '<br />'), { breaks: true })} />
+              <div set:html={render_markdown(e.description)} />
               {e.tags.length != 0 ? <hr class="border-accent1-200" /> : ''}
               {e.tags.length != 0 ? (
                 <div class="flex flex-wrap gap-2">
@@ -392,10 +414,12 @@ const eventsid = Math.random().toString(36).slice(2, 11)
 
     // toggle visible events
     events.forEach((e) => {
-      if (e.dataset.date == d) {
-        e.classList.remove('hidden')
-      } else {
-        e.classList.add('hidden')
+      if (e.dataset.date) {
+        if (e.dataset.date == d) {
+          e.classList.remove('hidden')
+        } else {
+          e.classList.add('hidden')
+        }
       }
     })
   }
@@ -405,16 +429,47 @@ const eventsid = Math.random().toString(36).slice(2, 11)
     b.addEventListener('click', () => setActiveDate(b.dataset.date))
   })
 
-  window.toggleOpenLocationDescription = function (open_location_id) {
-    const days = document.querySelectorAll(`div[data-description-of-open-location="${open_location_id}"]`)
-    days.forEach((day) => day.classList.toggle('hidden'))
+  window.toggleOpenLocationDescription = function (element, open_location_id) {
+    const description = document.querySelector(`section[data-description-of-open-location="${open_location_id}"]`)
+    description.classList.toggle('hidden')
+    const descriptions = document.querySelectorAll(`section[data-description-of-open-location]`)
+    descriptions.forEach((desc) => {
+      if (desc != description) {
+        desc.classList.add('hidden')
+      }
+    })
+
+    const arrows = document.querySelectorAll(`div[data-arrow-of-open-location]`)
+    arrows.forEach((arrow) => {
+      arrow.querySelectorAll('svg').forEach((svg) => {
+        const icon_to_hide =
+          arrow.dataset.arrowOfOpenLocation == open_location_id && !description.classList.contains('hidden')
+            ? 'lucide:arrow-down'
+            : 'lucide:arrow-up'
+        if (svg.dataset.icon == icon_to_hide) {
+          svg.classList.add('hidden')
+        } else {
+          svg.classList.remove('hidden')
+        }
+      })
+    })
+
+    const bridges = document.querySelectorAll(`div[data-bridge-of-open-location]`)
+    bridges.forEach((bridge) => {
+      if (bridge.dataset.bridgeOfOpenLocation == open_location_id && !description.classList.contains('hidden')) {
+        bridge.classList.remove('hidden')
+      } else {
+        bridge.classList.add('hidden')
+      }
+    })
   }
 
   window.toggleEventDescriptionAndTags = function (element, event_id) {
-    const event = document.querySelector(`section[data-description-and-tags-of-event="${event_id}"]`)
-    event.classList.toggle('hidden')
     Array.from(element.children).forEach((child) => {
       if (child.tagName == 'svg') child.classList.toggle('hidden')
     })
+
+    const event = document.querySelector(`section[data-description-and-tags-of-event="${event_id}"]`)
+    event.classList.toggle('hidden')
   }
 </script>

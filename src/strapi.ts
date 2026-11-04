@@ -26,6 +26,7 @@ function use_documentid_as_id(object: { id?: string; documentId?: string }) {
 export function loadStrapi(): Strapi {
   const env = process.env.NODE_ENV || 'development'
   const isDevelopment = env === 'development' || process.env.MODE === 'typecheck'
+  const useImmutableCachingMode = process.argv.includes('-i') || process.argv.includes('--immutable')
 
   const { STRAPI_URI, STRAPI_TOKEN } = loadEnv(env, process.cwd(), '')
 
@@ -41,11 +42,34 @@ export function loadStrapi(): Strapi {
     if (!isDevelopment) throw new Error('Missing STRAPI_URI or STRAPI_TOKEN environment variables')
   }
 
+  const fetched_strapi_items = new Set()
+
   return {
     fetchItems: async (itemName: string, options?: object) => {
       try {
+        Deno.mkdirSync('.strapi', { recursive: true })
+        const cache_pathname = `.strapi/${itemName}.json`
+
+        if (useImmutableCachingMode) {
+          try {
+            return JSON.parse(Deno.readTextFileSync(cache_pathname))
+          } catch (err) {
+            if (!(err instanceof Deno.errors.NotFound)) {
+              throw err
+            }
+          }
+        }
+
         const data = await fetchFromStrapi(STRAPI_URI!, STRAPI_TOKEN!, itemName, options)
         use_documentid_as_id(data)
+
+        if (fetched_strapi_items.has(itemName)) {
+          throw `${itemName} was already fetched before! (possibily with different options, but just the name goes in the cache file currently)`
+        } else {
+          fetched_strapi_items.add(itemName)
+        }
+
+        Deno.writeTextFileSync(cache_pathname, JSON.stringify(data, null, 2) + '\n')
         return data
       } catch (e) {
         if (process.env.CI) {

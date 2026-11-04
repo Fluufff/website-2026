@@ -25,6 +25,9 @@ Some of the content comes from the CMS, the IT department can be contacted for a
 
 Avoid adding those secrets to .env, instead you will want to create an .env.local file alongside it.
 
+In order to make some local changes to what strapi returns you can use the "deno run dev --immutable" flag in order to not pull changes,
+it is named after a very stubborn long lived HTTP cache header, it will serve content from .strapi that was automatically cached before.
+
 ### Scoped css
 
 Note that when css is scoped those classes cannot be used as inner/outer class on `Section` elements.

@@ -1,5 +1,4 @@
 ---
-import { marked } from 'marked'
 import { getCollection } from 'astro:content'
 import Base from '../../layouts/Base.astro'
 import Sidebar, { type SidebarLink } from '../../layouts/Sidebar.astro'
@@ -8,6 +7,7 @@ import Accordion from '../../components/Accordion.vue'
 import AccordionItem from '../../components/AccordionItem.astro'
 import FaqItem from '../../content/FaqItem.astro'
 import IconWithFallback from '../../components/IconWithFallback.astro'
+import { render_markdown } from '../../helpers'
 
 const raw_dedicated_faq_page = await getCollection('dedicatedFaqPage')
 
@@ -37,10 +37,9 @@ faq_pages.forEach((faq_page) => {
 
 const last_updated = all_updated_ats.sort((a, b) => a.localeCompare(b)).reverse()[0] ?? '1970-01-01T00:00:00.000Z'
 
-const description_html = await marked.parse(
+const description_html = render_markdown(
   `Last updated: ${last_updated.split('T')[0]!.split('-').reverse().join('/')}\n\n` +
-    raw_dedicated_faq_page[0]!.data.description,
-  { breaks: true }
+    raw_dedicated_faq_page[0]!.data.description
 )
 ---
 
@@ -50,7 +49,7 @@ const description_html = await marked.parse(
     iconClass="text-secondary-500"
     sidebarClass="bg-secondary-50"
     title=""
-    description={description_html}
+    description={`<div>${description_html}</div>`}
   >
     <section>
       <div class="content">
@@ -61,14 +60,7 @@ const description_html = await marked.parse(
           {faq_page.name}
         </h2>
         <Accordion class="dedicated-faq-page-accordion w-full" faq client:load>
-          {
-            faq_page.faq_entries.map((fe) => (
-              <FaqItem
-                question={fe.question}
-                set:html={marked.parse(fe.answer.replaceAll('\n', '<br />'), { breaks: true })}
-              />
-            ))
-          }
+          {faq_page.faq_entries.map((fe) => <FaqItem question={fe.question} set:html={render_markdown(fe.answer)} />)}
         </Accordion>
       </div>
       <div class="content mobile-only">
@@ -86,7 +78,7 @@ const description_html = await marked.parse(
                 {fp.faq_entries.map((fe) => (
                   <div class="faq-entry">
                     <strong>{fe.question}</strong>
-                    <div set:html={marked.parse(fe.answer.replaceAll('\n', '<br />'), { breaks: true })} />
+                    <div set:html={render_markdown(fe.answer)} />
                     <hr class="border-accent2-100 my-6" />
                   </div>
                 ))}

@@ -1,10 +1,10 @@
 ---
-import { marked } from 'marked'
 import Accordion from '../components/Accordion.vue'
 import Content from '../components/sections/Content.astro'
 
 import { getCollection } from 'astro:content'
 import FaqItem from '../content/FaqItem.astro'
+import { render_markdown } from '../helpers'
 const faqPages = await getCollection('faqPages')
 
 const { slug } = Astro.props
@@ -22,10 +22,7 @@ const faqPage = faqPages.find((faqPage) => faqPage.data.slug == slug)
       faqPage ? (
         faqPage.data.faq_entries.length > 0 ? (
           faqPage.data.faq_entries.map((faqEntry) => (
-            <FaqItem
-              question={faqEntry.question}
-              set:html={marked.parse(faqEntry.answer.replaceAll('\n', '<br />'), { breaks: true })}
-            />
+            <FaqItem question={faqEntry.question} set:html={render_markdown(faqEntry.answer)} />
           ))
         ) : (
           <FaqItem question="Where are the questions?">Well none here it seems, report this please.</FaqItem>

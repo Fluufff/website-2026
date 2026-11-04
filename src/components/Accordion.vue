@@ -88,7 +88,6 @@ function clicked(q: Element, a: Element) {
     grid-template-rows: 0fr;
     opacity: 0;
     visibility: hidden;
-    height: 0px;
     transition:
       grid-template-rows 0.3s ease-out,
       visibility 0.3s ease-out,
@@ -98,7 +97,6 @@ function clicked(q: Element, a: Element) {
       grid-template-rows: 1fr;
       opacity: 1;
       visibility: visible;
-      height: auto;
     }
   }
 }
@@ -152,8 +150,15 @@ function clicked(q: Element, a: Element) {
     overflow: hidden;
 
     > .accordion-item__content__inner {
-      padding: 0 32px 30px 40px;
+      transition: padding 0.3s ease-out;
+      padding: 0 32px 0px 40px;
       overflow: hidden;
+    }
+
+    &.active {
+      > .accordion-item__content__inner {
+        padding-bottom: 30px;
+      }
     }
   }
 }
