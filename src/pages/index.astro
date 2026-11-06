@@ -41,13 +41,7 @@ import Faq from '../content/Faq.astro'
       Whether you’re grinding for badges, exploring new maps, or just here for the vibes, every player adds something unique
       to the game. So plug in, <strong>press Start</strong> and let’s play!
     </p>
-    <Picture
-      class="w-2xs"
-      src={pic_map}
-      formats={['avif', 'webp']}
-      fallbackFormat="png"
-      alt=""
-    />
+    <Picture class="w-2xs" src={pic_map} formats={['avif', 'webp']} fallbackFormat="png" alt="" />
     <Button slot="actions" label="Download this year’s conbook" outline to="/Fluufff-2026-conbook.pdf" download />
     <Button slot="actions" label="View this year’s map" outline to="/Fluufff-2026-map.png" go />
   </Content>
