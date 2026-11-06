@@ -9,15 +9,16 @@ interface Props {
   accent1?: boolean
   go?: boolean
   newTab?: boolean
+  download?: boolean
 }
 
-const { label, to, primary = false, outline = false, accent1 = false, go = false, newTab = false } = Astro.props
+const { label, to, primary = false, outline = false, accent1 = false, go = false, newTab = false, download = false } = Astro.props
 
 const Element = to ? 'a' : 'button'
 ---
 
 <Element href={to} class="button" class:list={{ primary, outline, accent1 }} target={newTab ? '_blank' : undefined}
-  >{label}{!!go && <Icon name="mdi:arrow-right" />}</Element
+  >{label}{!!go && <Icon name="mdi:arrow-right" />}{!!download && <Icon name="lucide:download" />}</Element
 >
 
 <style lang="scss" is:global>
