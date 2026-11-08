@@ -225,7 +225,7 @@ function get_open_location_width_class(columns: number) {
             return (
               <section
                 data-date={day.date}
-                style="min-height: 82px;"
+                style="min-height: 82px; font-size: 14px;"
                 class={`hidden flex flex-col gap-4 p-4 shadow-md bg-neutrals-50 rounded-md schedule__entry relative basis-full ${get_open_location_width_class(openLocations.length)}`}
               >
                 <div class="flex justify-between items-center h-full font-bold">
@@ -245,8 +245,8 @@ function get_open_location_width_class(columns: number) {
                       )}
                     </div>
                   </div>
-                  <div class="flex gap-2" data-arrow-of-open-location={openLocation.id}>
-                    {openLocation.data.name}
+                  <div class="flex gap-2 items-center" data-arrow-of-open-location={openLocation.id}>
+                    <span class="text-right">{openLocation.data.name}</span>
                     <Icon
                       class="text-xl cursor-pointer text-accent1-500"
                       style="margin-top: 2px;"
@@ -286,16 +286,11 @@ function get_open_location_width_class(columns: number) {
             data-date={date}
             class="flex flex-col gap-4 px-6 py-8 md:p-16 shadow-md bg-neutrals-50 rounded-md schedule__entry basis-full"
           >
-            <h3 class="font-atari font-bold text-xl md:text-2xl text-center">Coming soon</h3>
+            <h3 class="font-atari font-bold text-xl md:text-2xl text-center">Early arrival day!</h3>
             <div class="my-2 md:my-8">
               <p class="text-center">
-                There’s nothing to see here yet because we’re still waiting on you to organise a panel on this day!
+                Welcome to Flüüfff! While there are no events planned, today is a good day to get settled, check out the hotel and surrounding area. Looking for inspiration for things to do or places to eat? Check out our <a href="/venue#hotel-surroundings">recommendations</a>. Happy you're here!
               </p>
-              <br class="md:hidden" />
-              <p class="text-center">We’re looking forward to seeing what you come up with.</p>
-            </div>
-            <div class="block md:flex justify-center">
-              <Button outline accent1 to="/events#want-to-be-part-of-the-action" label="Host your own event" go />
             </div>
           </section>
         ))
