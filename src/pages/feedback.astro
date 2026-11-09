@@ -1,0 +1,19 @@
+---
+import Base from '../layouts/Base.astro'
+import Section from '../components/Section.astro'
+---
+
+<Base>
+  <Section outerClass="bg-accent1-50" grid="grid-col-1 justify-items-center" innerClass="w-full" gap="gap-8">
+    <p>
+      You can submit feedback using our <a
+        href="https://forms.gle/LCZEPcUdJQSXPij68"
+        class="text-accent1-500 hover:text-accent1-600">feedback form</a
+      >.
+    </p>
+  </Section>
+</Base>
+
+<script>
+  window.location.href = 'https://forms.gle/LCZEPcUdJQSXPij68'
+</script>
