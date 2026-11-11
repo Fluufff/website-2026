@@ -25,13 +25,12 @@ function get_host_id_from_host_name(host_name: string) {
   return host_name.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '')
 }
 
-// deno-lint-ignore no-unused-vars
-function get_start_datetime(date: string, start: string, end: string) {
+function get_start_datetime(date: string, start: string) {
   return `${date}T${start}+${offset}`
 }
 
 function get_end_datetime(date: string, start: string, end: string) {
-  const st = get_start_datetime(date, start, end)
+  const st = get_start_datetime(date, start)
   const et = `${date}T${end}+${offset}`
 
   if (new Date(st) > new Date(et)) {
@@ -116,7 +115,7 @@ export const GET: APIRoute = () => {
         description: en_US(raw_event.data.description + tags_string),
         timeSlots: [
           {
-            startTime: get_start_datetime(raw_event.data.day, raw_event.data.start_time, raw_event.data.end_time),
+            startTime: get_start_datetime(raw_event.data.day, raw_event.data.start_time),
             endTime: get_end_datetime(raw_event.data.day, raw_event.data.start_time, raw_event.data.end_time),
             roomIds: raw_event.data.schedule_location ? [raw_event.data.schedule_location.id] : [],
             hostIds: raw_event.data.host_name ? [get_host_id_from_host_name(raw_event.data.host_name)] : [],
@@ -134,7 +133,7 @@ export const GET: APIRoute = () => {
       description: en_US(raw_open_location.data.description),
       timeSlots: raw_open_location.data.opening_times.map((opening_time: any) => {
         return {
-          startTime: get_start_datetime(opening_time.day, opening_time.start_time, opening_time.end_time),
+          startTime: get_start_datetime(opening_time.day, opening_time.start_time),
           endTime: get_end_datetime(opening_time.day, opening_time.start_time, opening_time.end_time),
           roomIds: [],
           hostIds: [get_host_id_from_host_name(con_name)],
