@@ -7,6 +7,9 @@ import Button from '../components/Button.astro'
 import heroImage from '../assets/images/hero/welcome.jpg'
 import attend from '../assets/images/home/attend.png'
 
+import { Picture } from 'astro:assets'
+import pic_map from '../../public/Fluufff-2026-map.png'
+
 import Program_preview from '../content/program_preview.astro'
 import Fun_facts from '../content/fun_facts.astro'
 import Highlights from '../content/highlights.astro'
@@ -31,14 +34,16 @@ import Faq from '../content/Faq.astro'
       <span class="font-bold">11th to the 15th of November 2026</span>.
     </p>
   </Hero>
-  <Content headline="Welcome to Flüüfff!" bg="secondary">
+  <Content headline="Welcome to Flüüfff!" bg="secondary" id="index-con-map-container">
     <p>
       Five days. Infinite side-quests. One massive co-op party.<br />
       Grab your controller (or tail), choose your avatar, and spawn into a world full of colour, laughter, and creative chaos.
       Whether you’re grinding for badges, exploring new maps, or just here for the vibes, every player adds something unique
       to the game. So plug in, <strong>press Start</strong> and let’s play!
     </p>
-    <Button slot="actions" label="Learn more about Flüüfff" outline to="/about" go />
+    <Picture class="w-2xs" src={pic_map} formats={['avif', 'webp']} fallbackFormat="png" alt="" />
+    <Button slot="actions" label="Download this year’s conbook" outline to="/Fluufff-2026-conbook.pdf" download />
+    <Button slot="actions" label="View this year’s map" outline to="/Fluufff-2026-map.png" go />
   </Content>
   <Program_preview />
   <Content headline="Why attend Flüüfff?" sideImage={attend} bg="primary">
@@ -58,3 +63,11 @@ import Faq from '../content/Faq.astro'
   <Socials />
   <Faq slug="index" />
 </Base>
+
+<style lang="scss" is:global>
+  #index-con-map-container {
+    picture {
+      margin-top: 30px;
+    }
+  }
+</style>
