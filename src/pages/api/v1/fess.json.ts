@@ -25,7 +25,7 @@ function get_host_id_from_host_name(host_name: string) {
   return host_name.toLowerCase().normalize('NFD').replace(/\p{M}/gu, '')
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// deno-lint-ignore no-unused-vars
 function get_start_datetime(date: string, start: string, end: string) {
   return `${date}T${start}+${offset}`
 }
