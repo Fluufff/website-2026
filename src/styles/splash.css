@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=Smythe&display=swap');
+
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Figtree', Arial, sans-serif;
+  --font-display: 'Smythe', Georgia, serif;
+  --background: oklch(17% 0.028 55);
+  --foreground: oklch(93% 0.035 83);
+  --accent: oklch(80% 0.08 183);
+  --border: oklch(62% 0.11 54/0.6);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+.text-foreground {
+  color: var(--foreground);
+}

@@ -3,6 +3,7 @@ import icon from 'astro-icon'
 import favicons from 'astro-favicons'
 import vue from '@astrojs/vue'
 import Icons from 'unplugin-icons/vite'
+import { FileSystemHMRIconLoader } from 'unplugin-icons/loaders'
 
 import brix, { brixFilled } from './utils/brix-icon-loader.ts'
 
@@ -28,7 +29,13 @@ export default defineConfig({
   },
 
   vite: {
-    plugins: [Icons({ compiler: 'vue3', customCollections: { brix, brixFilled } }), tailwindcss()],
+    plugins: [
+      Icons({
+        compiler: 'vue3',
+        customCollections: { brix, brixFilled, ...FileSystemHMRIconLoader('src/icons', 'custom') }
+      }),
+      tailwindcss()
+    ],
     css: {
       devSourcemap: true
     }

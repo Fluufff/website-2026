@@ -38,5 +38,6 @@
   "fmt": {
     "singleQuote": true,
     "semiColons": false
-  }
+  },
+  "allowScripts": ["npm:esbuild@0.25.10", "npm:fsevents@2.3.3", "npm:sharp@0.33.5", "npm:sharp@0.34.4"]
 }

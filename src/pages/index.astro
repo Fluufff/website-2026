@@ -1,73 +1,210 @@
 ---
-import Base from '../layouts/Base.astro'
-import Content from '../components/sections/Content.astro'
-import Hero from '../components/sections/Hero.astro'
-import Button from '../components/Button.astro'
+import '../styles/splash.css'
+import splash from '../assets/splash.png'
+import logosmol from '../assets/FLF-logo-horizontal-white.svg'
+import logofull from '../assets/FLF-logo-full-white.svg'
+import divider from '../assets/divider-1.svg'
 
-import heroImage from '../assets/images/hero/welcome.jpg'
-import attend from '../assets/images/home/attend.png'
-
-import { Picture } from 'astro:assets'
-import pic_map from '../../public/Fluufff-2026-map.png'
-
-import Program_preview from '../content/program_preview.astro'
-import Fun_facts from '../content/fun_facts.astro'
-import Highlights from '../content/highlights.astro'
-import Socials from '../content/socials.astro'
-import Faq from '../content/Faq.astro'
+import TelegramIcon from '~icons/cib/telegram'
+import FacebookIcon from '~icons/cib/facebook'
+import YoutubeIcon from '~icons/cib/youtube'
+import BskyIcon from '~icons/bi/bluesky'
+import XTwitterIcon from '~icons/garden/logo-x-20'
+import BarqIcon from '~icons/custom/barq'
 ---
 
-<Base>
-  <Hero headline="Press start!" image={heroImage}>
-    <p>
-      This year, when the console boots and the pixels light up, a new world invites you in. Furry heroes, paws at the
-      ready, gear up for a colourful adventure where every level is both familiar and fresh. Flüüfff 2026 launches into
-      its next edition; this time, in full retro-arcade style.
-    </p>
-    <p>
-      This year, Flüüfff takes place at the <span class="font-bold"
-        ><a
-          href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47c3f7eaf36792af:0xa7c6b8b9b8a9034d?sa=X&ved=1t:8290&ictx=111"
-          >Pullman Antwerp Hotel</a
-        ></span
-      > in Belgium from the <br />
-      <span class="font-bold">11th to the 15th of November 2026</span>.
-    </p>
-  </Hero>
-  <Content headline="Welcome to Flüüfff!" bg="secondary" id="index-con-map-container">
-    <p>
-      Five days. Infinite side-quests. One massive co-op party.<br />
-      Grab your controller (or tail), choose your avatar, and spawn into a world full of colour, laughter, and creative chaos.
-      Whether you’re grinding for badges, exploring new maps, or just here for the vibes, every player adds something unique
-      to the game. So plug in, <strong>press Start</strong> and let’s play!
-    </p>
-    <Picture class="w-2xs" src={pic_map} formats={['avif', 'webp']} fallbackFormat="png" alt="" />
-    <Button slot="actions" label="Download this year’s conbook" outline to="/Fluufff-2026-conbook.pdf" download />
-    <Button slot="actions" label="View this year’s map" outline to="/Fluufff-2026-map.png" go />
-  </Content>
-  <Program_preview />
-  <Content headline="Why attend Flüüfff?" sideImage={attend} bg="primary">
-    <p>
-      Flüüfff is one of the oldest furry conventions in Belgium, small enough to be cosy and big enough to be fun. It’s
-      a place where you can express yourself freely, meet kindred spirits, and celebrate what makes you come alive,
-      whether that’s in fur, feathers, or something all your own. No suit required, no experience needed; just curiosity
-      and an open mind.
-    </p>
-    <Fragment slot="actions">
-      <Button label="Contact us" primary go to="/contact" />
-      <Button label="Learn more" primary outline to="/about" />
-    </Fragment>
-  </Content>
-  <Fun_facts />
-  <Highlights />
-  <Socials />
-  <Faq slug="index" />
-</Base>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flüüfff</title>
+  </head>
+  <body>
+    <main
+      class="flex flex-col h-dvh overflow-scroll items-center justify-center overflow-hidden bg-background px-5 py-28 text-center text-foreground sm:px-8 sm:py-32"
+    >
+      <img
+        src={splash.src}
+        alt="Coming soon"
+        class="absolute inset-0 -z-20 h-full w-full object-cover object-[58%_center] sm:object-center"
+      />
 
-<style lang="scss" is:global>
-  #index-con-map-container {
-    picture {
-      margin-top: 30px;
+      <div class="darkener absolute inset-0 -z-10"></div>
+
+      <section class="coming-soon flex flex-col justify-center">
+        <img
+          src={logosmol.src}
+          alt="Flüüfff 2027"
+          class="hidden h-24 w-auto max-w-[min(38rem,74vw)] object-contain sm:block mx-auto"
+        />
+        <img src={logofull.src} alt="Flüüfff 2027" class="h-36 w-36 object-contain sm:hidden mx-auto" />
+
+        <p
+          class="mb-4 max-[380px]:tracking-[0.13em] text-balance font-sans text-xs font-bold uppercase tracking-[0.32em] text-accent sm:text-sm"
+        >
+          8th edition: goggles & gauges
+        </p>
+
+        <h1 class="font-display text-6xl leading-none text-foreground sm:text-8xl lg:text-9xl">Coming soon</h1>
+
+        <img src={divider.src} alt="" class="mx-auto my-7 max-w-md" />
+
+        <p class="reg-opens mx-auto max-w-2xl font-sans text-lg leading-relaxed text-foreground sm:text-2xl">
+          The next edition starts on November 10th, 2027 at 12:00 (UTC+1).
+        </p>
+
+        <section id="nixies" class="mt-8 flex flex-col sm:flex-row justify-center sm:mt-10 gap-6 items-center">
+        </section>
+      </section>
+
+      <div class="flex-1"></div>
+
+      <section class="flex gap-5 mt-10">
+        <a href="https://t.me/fluufff_announcements" target="_blank"><TelegramIcon class="h-6 w-6" /> </a>
+        <a href="https://www.facebook.com/fluufff/" target="_blank"><FacebookIcon class="h-6 w-6" /> </a>
+        <a href="https://x.com/FluufffCon" target="_blank"><XTwitterIcon class="h-6 w-6" /> </a>
+        <a href="https://bsky.app/profile/did:plc:fei6suxorko4znzdnjl3wrik" target="_blank"
+          ><BskyIcon class="h-6 w-6" />
+        </a>
+        <a href="https://www.youtube.com/@fluufff" target="_blank"><YoutubeIcon class="h-6 w-6" /> </a>
+        <a href="https://barq.app/c/CGsmmrd" target="_blank"><BarqIcon class="h-6 w-6" /> </a>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style lang="scss">
+  .darkener {
+    background:
+      radial-gradient(
+        80% 62% at 50% 46%,
+        oklch(17% 0.028 55/0.82),
+        oklch(17% 0.028 55/0.58) 50%,
+        oklch(17% 0.028 55/0.22)
+      ),
+      linear-gradient(oklch(17% 0.028 55/0.34), oklch(17% 0.028 55/0.08) 45%, oklch(17% 0.028 55/0.46));
+  }
+  .coming-soon {
+    text-shadow:
+      0 1px 3px oklch(8% 0.02 50/0.85),
+      0 2px 18px oklch(8% 0.02 50/0.75);
+  }
+  .reg-opens {
+    text-shadow:
+      0 0 6px oklch(10% 0.02 50/0.9),
+      0 1px 3px oklch(8% 0.02 50/0.9),
+      0 2px 16px oklch(8% 0.02 50/0.8);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .coming-soon {
+      animation: 0.9s ease-out both reveal;
+    }
+    @keyframes reveal {
+      0% {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  }
+  .nixie-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    .nixies {
+      display: flex;
+      .nixie {
+      }
+    }
+
+    & > p {
+      text-shadow:
+        0 0 5px oklch(10% 0.02 50/0.95),
+        0 1px 2px oklch(8% 0.02 50/0.95),
+        0 2px 10px oklch(8% 0.02 50/0.85);
     }
   }
 </style>
+
+<script>
+  import Nixie from '../components/Nixie.vue'
+  import { createApp, reactive, h } from 'vue'
+
+  const parent = document.getElementById('nixies')!
+  const parentCid = Object.keys(parent.dataset).find((k) => k.startsWith('astroCid'))!
+
+  const aNixie = () => {
+    const p = reactive({ digit: '0' })
+    const container = document.createElement('div')
+
+    const el = createApp({
+      setup() {
+        return () => h(Nixie, { digit: p.digit })
+      }
+    }).mount(container)
+
+    return { el, p }
+  }
+
+  // The next edition starts on November 10th, 2027 at 12:00 (GMT+2).
+  const countdownDate = new Date('2027-11-10T10:00:00Z')
+  const countdownPieces = {
+    days: [aNixie(), aNixie(), aNixie()],
+    hours: [aNixie(), aNixie()],
+    minutes: [aNixie(), aNixie()],
+    seconds: [aNixie(), aNixie()]
+  }
+
+  // Set up DOM
+  Object.keys(countdownPieces).forEach((key) => {
+    const group = document.createElement('section')
+    group.classList.add('nixie-group')
+    group.dataset[parentCid] = ''
+
+    const nixies = document.createElement('div')
+    nixies.classList.add('nixies')
+    nixies.dataset[parentCid] = ''
+
+    for (const nixie of countdownPieces[key as keyof typeof countdownPieces]) {
+      nixies.appendChild(nixie.el.$el)
+    }
+
+    const label = document.createElement('p')
+    label.textContent = key.toUpperCase()
+    label.dataset[parentCid] = ''
+
+    group.appendChild(nixies)
+    group.appendChild(label)
+    parent.appendChild(group)
+  })
+  const updateCountdown = () => {
+    const now = new Date()
+    const timeDifference = countdownDate.getTime() - now.getTime()
+
+    if (timeDifference <= 0) {
+      return
+    }
+
+    const seconds = Math.floor(timeDifference / 1000) % 60
+    const minutes = Math.floor(timeDifference / (1000 * 60)) % 60
+    const hours = Math.floor(timeDifference / (1000 * 60 * 60)) % 24
+    const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24))
+
+    countdownPieces.days[0]!.p.digit = Math.floor(days / 100).toString()
+    countdownPieces.days[1]!.p.digit = Math.floor((days % 100) / 10).toString()
+    countdownPieces.days[2]!.p.digit = (days % 10).toString()
+    countdownPieces.hours[0]!.p.digit = Math.floor(hours / 10).toString()
+    countdownPieces.hours[1]!.p.digit = (hours % 10).toString()
+    countdownPieces.minutes[0]!.p.digit = Math.floor(minutes / 10).toString()
+    countdownPieces.minutes[1]!.p.digit = (minutes % 10).toString()
+    countdownPieces.seconds[0]!.p.digit = Math.floor(seconds / 10).toString()
+    countdownPieces.seconds[1]!.p.digit = (seconds % 10).toString()
+  }
+  updateCountdown()
+  setInterval(updateCountdown, 1000)
+</script>
