@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro'
+import Content from '../components/sections/Content.astro'
+import Hero from '../components/sections/Hero.astro'
+import Button from '../components/Button.astro'
+
+import heroImage from '../assets/images/hero/welcome.jpg'
+import attend from '../assets/images/home/attend.png'
+
+import { Picture } from 'astro:assets'
+import pic_map from '../../public/Fluufff-2026-map.png'
+
+import Program_preview from '../content/program_preview.astro'
+import Fun_facts from '../content/fun_facts.astro'
+import Highlights from '../content/highlights.astro'
+import Socials from '../content/socials.astro'
+import Faq from '../content/Faq.astro'
+---
+
+<Base>
+  <Hero headline="Press start!" image={heroImage}>
+    <p>
+      This year, when the console boots and the pixels light up, a new world invites you in. Furry heroes, paws at the
+      ready, gear up for a colourful adventure where every level is both familiar and fresh. Flüüfff 2026 launches into
+      its next edition; this time, in full retro-arcade style.
+    </p>
+    <p>
+      This year, Flüüfff takes place at the <span class="font-bold"
+        ><a
+          href="https://www.google.com/maps/place//data=!4m2!3m1!1s0x47c3f7eaf36792af:0xa7c6b8b9b8a9034d?sa=X&ved=1t:8290&ictx=111"
+          >Pullman Antwerp Hotel</a
+        ></span
+      > in Belgium from the <br />
+      <span class="font-bold">11th to the 15th of November 2026</span>.
+    </p>
+  </Hero>
+  <Content headline="Welcome to Flüüfff!" bg="secondary" id="index-con-map-container">
+    <p>
+      Five days. Infinite side-quests. One massive co-op party.<br />
+      Grab your controller (or tail), choose your avatar, and spawn into a world full of colour, laughter, and creative chaos.
+      Whether you’re grinding for badges, exploring new maps, or just here for the vibes, every player adds something unique
+      to the game. So plug in, <strong>press Start</strong> and let’s play!
+    </p>
+    <Picture class="w-2xs" src={pic_map} formats={['avif', 'webp']} fallbackFormat="png" alt="" />
+    <Button slot="actions" label="Download this year’s conbook" outline to="/Fluufff-2026-conbook.pdf" download />
+    <Button slot="actions" label="View this year’s map" outline to="/Fluufff-2026-map.png" go />
+  </Content>
+  <Program_preview />
+  <Content headline="Why attend Flüüfff?" sideImage={attend} bg="primary">
+    <p>
+      Flüüfff is one of the oldest furry conventions in Belgium, small enough to be cosy and big enough to be fun. It’s
+      a place where you can express yourself freely, meet kindred spirits, and celebrate what makes you come alive,
+      whether that’s in fur, feathers, or something all your own. No suit required, no experience needed; just curiosity
+      and an open mind.
+    </p>
+    <Fragment slot="actions">
+      <Button label="Contact us" primary go to="/contact" />
+      <Button label="Learn more" primary outline to="/about" />
+    </Fragment>
+  </Content>
+  <Fun_facts />
+  <Highlights />
+  <Socials />
+  <Faq slug="index" />
+</Base>
+
+<style lang="scss" is:global>
+  #index-con-map-container {
+    picture {
+      margin-top: 30px;
+    }
+  }
+</style>

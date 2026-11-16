@@ -23,6 +23,10 @@ interface NavbarItem {
 const navbar_items: NavbarItem[] = [
   {
     name: 'Home',
+    href: '/home'
+  },
+  {
+    name: 'Next edition',
     href: '/'
   },
   {
@@ -32,10 +36,10 @@ const navbar_items: NavbarItem[] = [
         name: 'Schedule',
         href: '/schedule'
       },
-      {
-        name: 'Photoshoot',
-        href: '/photoshoot'
-      },
+      // {
+      //   name: 'Photoshoot',
+      //   href: '/photoshoot'
+      // },
       {
         name: 'Venue & Location',
         href: '/venue'
@@ -81,7 +85,7 @@ const navbar_items: NavbarItem[] = [
 
 <header class="z-10 flex flex-row flex-wrap text-primary-600 bg-primary-50 justify-center items-center">
   <div class="flex w-full md:w-auto items-center justify-between md:justify-center mx-8 my-6">
-    <a id="header_logo" href="/"><Logo height={48} class="fill-primary-700" /></a>
+    <a id="header_logo" href="/home"><Logo height={48} class="fill-primary-700" /></a>
     <LucideMenu id="open-mobile-nav" class="md:hidden text-4xl ml-5 cursor-pointer" />
     <LucideX id="close-mobile-nav" class="hidden md:hidden text-4xl ml-5 cursor-pointer" />
   </div>
@@ -125,8 +129,9 @@ const navbar_items: NavbarItem[] = [
       })
     }
     <Timed start={start_registration}>
-      <Button label="Register" primary go to="https://registration.fluufff.org" />
-      <Button slot="else" label="Create an account" to="https://registration.fluufff.org" />
+      <Button label="Give feedback" primary go to="/feedback" />
+      <!-- <Button label="Register" primary go to="https://registration.fluufff.org" /> -->
+      <!-- <Button slot="else" label="Create an account" to="https://registration.fluufff.org" /> -->
     </Timed>
   </nav>
   <nav id="nav--mobile" class="hidden flex flex-col md:hidden w-full">

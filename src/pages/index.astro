@@ -11,6 +11,7 @@ import YoutubeIcon from '~icons/cib/youtube'
 import BskyIcon from '~icons/bi/bluesky'
 import XTwitterIcon from '~icons/garden/logo-x-20'
 import BarqIcon from '~icons/custom/barq'
+import ArrowRightIcon from '~icons/lucide/arrow-right'
 ---
 
 <html lang="en-US">
@@ -69,6 +70,13 @@ import BarqIcon from '~icons/custom/barq'
         <a href="https://www.youtube.com/@fluufff" target="_blank"><YoutubeIcon class="h-6 w-6" /> </a>
         <a href="https://barq.app/c/CGsmmrd" target="_blank"><BarqIcon class="h-6 w-6" /> </a>
       </section>
+
+      <a
+        class="to-old-site flex items-center mt-2 mx-auto max-w-2xl font-sans text-sm leading-relaxed text-foreground sm:text-md"
+        href="/home"
+      >
+        2026 site this way <ArrowRightIcon />
+      </a>
     </main>
   </body>
 </html>
@@ -90,6 +98,12 @@ import BarqIcon from '~icons/custom/barq'
       0 2px 18px oklch(8% 0.02 50/0.75);
   }
   .reg-opens {
+    text-shadow:
+      0 0 6px oklch(10% 0.02 50/0.9),
+      0 1px 3px oklch(8% 0.02 50/0.9),
+      0 2px 16px oklch(8% 0.02 50/0.8);
+  }
+  .to-old-site {
     text-shadow:
       0 0 6px oklch(10% 0.02 50/0.9),
       0 1px 3px oklch(8% 0.02 50/0.9),
